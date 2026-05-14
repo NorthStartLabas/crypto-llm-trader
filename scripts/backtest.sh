@@ -4,7 +4,7 @@ set -euo pipefail
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CONFIG="${CONFIG:-/freqtrade/user_data/configs/config.kraken.dryrun.json}"
-STRATEGY="${STRATEGY:-SampleStrategy}"
+STRATEGY="${STRATEGY:-DryRunPlaceholder}"
 TIMERANGE="${TIMERANGE:-20240101-}"
 
 echo "==> Backtesting strategy: $STRATEGY"

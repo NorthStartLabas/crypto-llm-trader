@@ -12,7 +12,7 @@ bash scripts/check_safety.sh
 # Validate Kraken pair symbols (Docker required, no API key needed)
 bash scripts/list_kraken_markets.sh
 
-# Validate config against exchange (runs safety checks first)
+# Validate config (runs safety checks then freqtrade show-config to parse and resolve)
 bash scripts/validate_config.sh
 
 # Start dry-run (foreground, Ctrl+C to stop)
@@ -113,7 +113,7 @@ docker compose run --rm freqtrade download-data \
 # Backtesting (Phase 1 — uncomment scripts/backtest.sh)
 docker compose run --rm freqtrade backtesting \
   --config /freqtrade/user_data/configs/config.kraken.dryrun.json \
-  --strategy SampleStrategy
+  --strategy DryRunPlaceholder
 ```
 
 ---
