@@ -1,0 +1,23 @@
+version: "3.8"
+
+services:
+  freqtrade:
+    image: freqtradeorg/freqtrade:stable
+    restart: unless-stopped
+    container_name: freqtrade
+    volumes:
+      - ./user_data:/freqtrade/user_data
+    ports:
+      # API server bound to localhost only — never expose to 0.0.0.0 in production
+      - "127.0.0.1:8080:8080"
+    environment:
+      - EXCHANGE_NAME=${EXCHANGE_NAME:-kraken}
+      - DRY_RUN=${DRY_RUN:-true}
+    env_file:
+      - .env
+    command: >
+      trade
+      --logfile /freqtrade/user_data/logs/freqtrade.log
+      --db-url sqlite:////freqtrade/user_data/tradesv3.sqlite
+      --config /freqtrade/user_data/configs/config.kraken.dryrun.json
+      --strategy SampleStrategy
