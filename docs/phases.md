@@ -5,22 +5,47 @@ validated (backtested, reviewed, and deliberately approved).
 
 ---
 
-## Phase 0 — Repository foundation [ACTIVE]
+## Phase 0 — Repository foundation [DONE]
 
 **Goal:** Reproducible Freqtrade environment with no custom logic.
 
 Deliverables:
-- Docker Compose wrapping `freqtradeorg/freqtrade:stable`
+- Docker Compose wrapping `freqtradeorg/freqtrade:2024.9`
 - `user_data/` volume with configs, strategies, data, logs
 - Dry-run config for Kraken spot
 - Operational scripts (setup, validate, run)
 - Documentation skeleton
 
-Exit criteria:
+Exit criteria met:
 - `bash scripts/run_dry.sh` starts the bot in dry-run
 - FreqUI accessible at `127.0.0.1:8080`
 - No real API keys required
 - All data directories exist and are gitignored
+
+---
+
+## Phase 0.5 — Validation and hardening [DONE]
+
+**Goal:** Harden the Phase 0 skeleton before any strategy work begins.
+
+Changes made:
+- Pinned Freqtrade Docker image from `stable` to `2024.9` for reproducibility
+- Added `FREQTRADE__` environment variable overrides for all sensitive config values
+  (API server credentials, exchange key/secret) — secrets never touch the JSON config
+- Added `scripts/check_safety.sh` — static safety battery covering dry-run flag,
+  trading mode, force-entry, API binding, empty credentials, and no live configs
+- Added `scripts/list_kraken_markets.sh` — validates pair symbols before first run
+- Hardened `scripts/run_dry.sh` — refuses if `.env` is missing, DRY_RUN != true,
+  config is missing, or config contains `"dry_run": false`
+- Updated `scripts/validate_config.sh` to run safety checks before exchange validation
+- Updated `scripts/setup.sh` to guide through the full pre-flight sequence
+- Updated all documentation to reflect Phase 0.5 status
+
+Exit criteria met:
+- `bash scripts/check_safety.sh` passes on a clean checkout
+- `bash scripts/run_dry.sh` refuses to start if any safety check fails
+- `bash scripts/list_kraken_markets.sh` runs without API keys
+- No default path can accidentally trade live
 
 ---
 

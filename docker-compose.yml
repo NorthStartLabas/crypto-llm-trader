@@ -1,8 +1,12 @@
 version: "3.8"
 
+# Image pinned to 2024.9 (the stable release current at project initialisation).
+# Before upgrading, review https://github.com/freqtrade/freqtrade/releases and
+# check for breaking config changes. Never update by pointing back at 'stable'.
+
 services:
   freqtrade:
-    image: freqtradeorg/freqtrade:stable
+    image: freqtradeorg/freqtrade:2024.9
     restart: unless-stopped
     container_name: freqtrade
     volumes:
@@ -13,6 +17,15 @@ services:
     environment:
       - EXCHANGE_NAME=${EXCHANGE_NAME:-kraken}
       - DRY_RUN=${DRY_RUN:-true}
+      # Freqtrade reads FREQTRADE__<section>__<key> env vars and overrides the
+      # matching JSON config values. This keeps secrets out of the config file.
+      # Set these in .env — do not hardcode real values here.
+      - FREQTRADE__api_server__username=${FREQTRADE__api_server__username:-freqtrade}
+      - FREQTRADE__api_server__password=${FREQTRADE__api_server__password:-change_me}
+      - FREQTRADE__api_server__jwt_secret_key=${FREQTRADE__api_server__jwt_secret_key:-change_me}
+      - FREQTRADE__api_server__ws_token=${FREQTRADE__api_server__ws_token:-change_me_ws}
+      - FREQTRADE__exchange__key=${FREQTRADE__exchange__key:-}
+      - FREQTRADE__exchange__secret=${FREQTRADE__exchange__secret:-}
     env_file:
       - .env
     command: >
