@@ -13,6 +13,12 @@ user_data/freqaimodels/
 user_data/tradesv3.sqlite
 user_data/tradesv3.sqlite-journal
 
+# Freqtrade auto-created dirs (created on first run, not tracked)
+user_data/hyperopt_results/
+user_data/hyperopts/
+user_data/notebooks/
+user_data/plot/
+
 # FreqAI (future)
 user_data/models/
 

@@ -1,0 +1,33 @@
+{
+  "strategy_name": "BaselineRsiEmaStrategy",
+  "params": {
+    "trailing": {
+      "trailing_stop": false,
+      "trailing_stop_positive": null,
+      "trailing_stop_positive_offset": 0.0,
+      "trailing_only_offset_is_reached": false
+    },
+    "max_open_trades": {
+      "max_open_trades": 3
+    },
+    "buy": {
+      "buy_rsi_entry": 54
+    },
+    "sell": {
+      "sell_ema_cross_enabled": false,
+      "sell_rsi_exit": 90
+    },
+    "protection": {},
+    "roi": {
+      "0": 0.382,
+      "421": 0.08099999999999999,
+      "741": 0.036,
+      "1802": 0
+    },
+    "stoploss": {
+      "stoploss": -0.268
+    }
+  },
+  "ft_stratparam_v": 1,
+  "export_time": "2026-05-15 23:34:39.377218+00:00"
+}
