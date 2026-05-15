@@ -1,0 +1,3 @@
+[submodule "vendor/freqtrade-strategies"]
+	path = vendor/freqtrade-strategies
+	url = https://github.com/freqtrade/freqtrade-strategies.git
